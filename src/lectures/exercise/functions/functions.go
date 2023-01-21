@@ -17,8 +17,41 @@
 
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"math/rand"
+)
+
+func greetPerson(name string) {
+	fmt.Println("Hola!", name)
+}
+
+func secretMessage() string {
+	return "420 > 69"
+}
+
+func addThreeNumbers(a, b, c int) int {
+	return a + b + c
+}
+
+func randomNumber() int {
+	return rand.Int()
+}
+
+func twoRandomNumber() (int, int) {
+	return rand.Int(), rand.Int()
+}
 
 func main() {
+	greetPerson("sniperline047")
 
+	fmt.Println("Sum of 3 number is: ", addThreeNumbers(69, 420, 911))
+
+	fmt.Println("Secret message is:", secretMessage())
+
+	fmt.Println("Random number is: ", randomNumber())
+	rand1, ranr2 := twoRandomNumber()
+	fmt.Println("Two Random number is: ", rand1, "and", ranr2)
+
+	fmt.Println("Sum of 3 random number is: ", addThreeNumbers(randomNumber(), rand1, ranr2))
 }
