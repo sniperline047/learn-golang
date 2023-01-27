@@ -23,7 +23,48 @@
 
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"math/rand"
+	"time"
+)
+
+func roll(sides int) int {
+	return rand.Intn(sides) + 1
+}
+
+func isEven(value int) bool {
+	return value%2 == 0
+}
 
 func main() {
+	// seed the random number each timwe with unique value using the time function
+	rand.Seed(time.Now().UnixNano())
+
+	dice, sides := 2, 6
+	rolls := 2
+
+	for r := rolls; r > 0; r-- {
+		sum := 0
+		d := dice
+		for d > 0 {
+			sum += roll(sides)
+			d--
+		}
+
+		fmt.Println("Dice roll #", rolls+1-r, "value is", sum)
+
+		if isEven(sum) {
+			fmt.Println("Even")
+		} else {
+			fmt.Println("Odd")
+		}
+
+		switch sum := sum; {
+		case sum == 2 && dice == 2:
+			fmt.Println("Snake eyes")
+		case sum == 7:
+			fmt.Println("Lucky 7")
+		}
+	}
 }
