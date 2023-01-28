@@ -18,5 +18,26 @@ import "fmt"
 
 type Part string
 
+func printAssembly(title string, parts []Part) {
+	fmt.Println()
+	fmt.Println("----------------", title, "----------------")
+
+	for i := 0; i < len(parts); i++ {
+		part := parts[i]
+		fmt.Println(part)
+	}
+}
+
 func main() {
+	//  - Create an assembly line having any three parts
+	assemblyLine := []Part{"Washer", "Dryer", "Fryer"}
+	printAssembly("Initial Parts", assemblyLine)
+
+	//  - Add two new parts to the line
+	assemblyLine = append(assemblyLine, "Packging", "Branding")
+	printAssembly("Updated with new parts", assemblyLine)
+
+	//  - Slice the assembly line so it contains only the two new parts
+	assemblyLine = assemblyLine[3:]
+	printAssembly("Only New parts", assemblyLine)
 }
