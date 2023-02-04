@@ -16,8 +16,49 @@
 
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"math/rand"
+)
+
+const (
+	Active   = true
+	Inactive = false
+)
+
+type SecureItem struct {
+	name        string
+	securityTag bool
+}
+
+func changeTag(item *SecureItem, state bool) {
+	item.securityTag = state
+}
+
+func checkout(items []SecureItem) {
+	for index := range items {
+		changeTag(&items[index], Inactive)
+	}
+}
 
 func main() {
+	rand.Seed(4)
 
+	shirt := SecureItem{"Soap", Active}
+	hanger := SecureItem{"Hanger", Active}
+	banana := SecureItem{"Banana", Active}
+	detergent := SecureItem{"Detergent", Active}
+
+	items := []SecureItem{shirt, hanger, banana, detergent}
+	fmt.Println("Initial items", items)
+
+	randomIndex := rand.Intn(4)
+	changeTag(&items[randomIndex], Inactive)
+	fmt.Println()
+	fmt.Println("Tag", items[randomIndex].name, "deactivated")
+	fmt.Println("Modified items", items)
+
+	checkout(items)
+	fmt.Println()
+	fmt.Println("All tags deactivated!", items)
 }
