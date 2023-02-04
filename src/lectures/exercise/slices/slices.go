@@ -30,7 +30,12 @@ func printAssembly(title string, parts []Part) {
 
 func main() {
 	//  - Create an assembly line having any three parts
-	assemblyLine := []Part{"Washer", "Dryer", "Fryer"}
+	assemblyLine := make([]Part, 3)
+
+	assemblyLine[0] = "Washer"
+	assemblyLine[1] = "Dryer"
+	assemblyLine[2] = "Fryer"
+
 	printAssembly("Initial Parts", assemblyLine)
 
 	//  - Add two new parts to the line
