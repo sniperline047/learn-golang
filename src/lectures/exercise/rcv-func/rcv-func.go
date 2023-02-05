@@ -25,20 +25,16 @@ type Player struct {
 	energy Stat
 }
 
-func (player Player) defaultValues() Player {
-	if player.health == 0 {
-		player.health = 100
-	}
-
-	if player.energy == 0 {
-		player.energy = 100
-	}
-
-	return player
+func NewPlayer(name PlayerName) Player {
+	return Player{name: name, health: 100, energy: 100}
 }
 
 func (player *Player) changeHealth(change int) {
 	newHealth := player.health + Stat(change)
+
+	if newHealth > 100 {
+		newHealth = 100
+	}
 
 	if newHealth < 0 {
 		newHealth = 0
@@ -50,6 +46,10 @@ func (player *Player) changeHealth(change int) {
 func (player *Player) changeEnergy(change int) {
 	newEnergy := player.energy + Stat(change)
 
+	if newEnergy > 100 {
+		newEnergy = 100
+	}
+
 	if newEnergy < 0 {
 		newEnergy = 0
 	}
@@ -58,7 +58,7 @@ func (player *Player) changeEnergy(change int) {
 }
 
 func main() {
-	readyPlayerOne := Player{name: "Ready Player One"}.defaultValues()
+	readyPlayerOne := NewPlayer("Ready Player One")
 	fmt.Println("Initial:", readyPlayerOne)
 
 	readyPlayerOne.changeHealth(10)
