@@ -21,6 +21,64 @@ package main
 
 import "fmt"
 
-func main() {
+const (
+	SmallLift = iota
+	StandardLift
+	LargeLift
+)
 
+type Lift int
+
+type LiftPicker interface {
+	PickLift() Lift
+	String()
+}
+
+func (l Lift) printLiftType() {
+	fmt.Printf("sending to %v\n\n", []string{"small lift", "standard lift", "large lift"}[int(l)])
+}
+
+type Mototcycles string
+type Cars string
+type Trucks string
+
+func (m Mototcycles) PickLift() Lift {
+	return SmallLift
+}
+
+func (m Mototcycles) String() {
+	fmt.Printf("--Vehicle: %v--\n", string(m))
+}
+
+func (c Cars) PickLift() Lift {
+	return StandardLift
+}
+
+func (c Cars) String() {
+	fmt.Printf("--Vehicle: %v--\n", string(c))
+}
+
+func (t Trucks) PickLift() Lift {
+	return LargeLift
+}
+
+func (t Trucks) String() {
+	fmt.Printf("--Vehicle: %v--\n", string(t))
+}
+
+func pickLifts(vehicles []LiftPicker) {
+	fmt.Println("Picking Lifts for:")
+	for i := 0; i < len(vehicles); i++ {
+		vehicle := vehicles[i]
+		vehicle.String()
+		lift := vehicle.PickLift()
+		lift.printLiftType()
+	}
+	fmt.Println()
+}
+
+func main() {
+	vehicles := []LiftPicker{Trucks("Road Devourer"), Mototcycles("Classic"), Cars("Porche"), Mototcycles("Sports"), Cars("Lamborghini")}
+
+	pickLifts(vehicles)
 }
