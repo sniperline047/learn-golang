@@ -18,8 +18,53 @@
 
 package main
 
-import "fmt"
+import (
+	"bufio"
+	"fmt"
+	"os"
+	"strings"
+)
+
+const (
+	CmdHello       = "hello"
+	CmdBye         = "bye"
+	CmdMandalorian = "mandalorian"
+)
 
 func main() {
+	scanner := bufio.NewScanner(os.Stdin)
 
+	var (
+		lineCount    int
+		commandCount int
+	)
+
+	for scanner.Scan() {
+		scannedLine := scanner.Text()
+		fmt.Println("You entered:", scanner.Text())
+		if strings.ToLower(scannedLine) == "q" {
+			break
+		} else {
+			scannedLine = strings.TrimSpace(scannedLine)
+
+			switch scannedLine {
+			case CmdHello:
+				commandCount += 1
+				fmt.Println("Hello human!")
+			case CmdBye:
+				commandCount += 1
+				fmt.Println("Chao!")
+			case CmdMandalorian:
+				commandCount += 1
+				fmt.Println("This is the way!")
+			}
+
+			if scannedLine != "" {
+				lineCount += 1
+			}
+		}
+	}
+
+	fmt.Printf("You entered %v commands!\n", commandCount)
+	fmt.Printf("You entered %v lines!\n", lineCount)
 }
